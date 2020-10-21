@@ -55,32 +55,21 @@ function startGame() {
 }
 
 function stopGame() {
-
    let confirmStop = confirm('Vuoi davvero interrompere la partita?');
    if (confirmStop) {
-
-      resetGame();
-
-      removeDisabled(playerNameContainer);
-      removeDisabled(startButton);
-      setDisabled(stopButton);
-      removeDisabled(resetButton);
+      emptyBoard();
    }
-
 }
 
 function resetGame() {
-   stopTimer();
-   emptyInput(playerNameContainer);
-   matchedTiles = [];
+   let confirmReset = confirm('Vuoi davvero resettare il gioco azzerando la classifica?');
+   if (confirmReset) {
+      emptyBoard();
 
-   removeDisabled(playerNameContainer);
-   removeDisabled(startButton);
-   setDisabled(stopButton);
-   removeDisabled(resetButton);
-
-   // resetto senza stare a fare lo shuffle?
-   generateTiles('auto');
+      winners = [];
+      window.localStorage.setItem('winners', JSON.stringify(winners));
+      updateWinners();
+   }
 }
 
 
@@ -117,7 +106,7 @@ function updateWinners() {
          return timeA - timeB;
       });
 
-      winners.forEach((player, i) => {
+      winners.forEach((player) => {
          let listItem = document.createElement('li');
          listItem.classList.add('list-group-item');
          listItem.innerHTML = `${player.name}`;
@@ -162,6 +151,10 @@ function generateTiles(cursor) {
       tileObjectsArray.push(tileObject);
       tileDOM.onclick = function () { flipTile(tileObject.dom, tileObject.color) };
       tileContainer.appendChild(tileBox);
+   }
+
+   if (cursor == 'auto') {
+      removePointerEvents(document.querySelectorAll('.tile'));
    }
 }
 
@@ -271,10 +264,23 @@ function flipTile(tileDOM, colorCode) {
 
       setTimeout(() => {
          alert(`Partita completata! Tempo impiegato: ${time}`);
-         resetGame();
+         emptyBoard();
          updateWinners();
       }, 1000);
    }
+}
+
+function emptyBoard() {
+   stopTimer();
+   emptyInput(playerNameContainer);
+   matchedTiles = [];
+
+   removeDisabled(playerNameContainer);
+   removeDisabled(startButton);
+   setDisabled(stopButton);
+   removeDisabled(resetButton);
+
+   generateTiles('auto');
 }
 
 
