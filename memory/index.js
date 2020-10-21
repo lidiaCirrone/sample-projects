@@ -33,6 +33,11 @@ var seconds = 0;
 var minutes = 0;
 var timer = document.getElementById('timer');
 
+playerNameContainer.onkeyup = (event) => {
+   if (event.keyCode === 13) {
+      startGame();
+   }
+};
 
 
 // --------------------
