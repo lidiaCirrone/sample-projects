@@ -25,7 +25,7 @@ var tileContainer = document.getElementById('tile-container');
 
 var tileObjectsArray = [];
 var clickedTiles = [];
-var matchedTiles = 0;
+var matchedTiles = [];
 var winners = [];
 var winnersLs = window.localStorage.getItem('winners');
 
@@ -72,8 +72,7 @@ function stopGame() {
 function resetGame() {
    stopTimer();
    emptyInput(playerNameContainer);
-   matchedTiles = 0;
-
+   matchedTiles = [];
 
    removeDisabled(playerNameContainer);
    removeDisabled(startButton);
@@ -198,11 +197,6 @@ function createTile(cursor) {
    return tileBox;
 }
 
-// function Tile(color, index) {
-//    this.color = color;
-//    this.index = index;
-// }
-
 function flipTile(tileDOM, colorCode) {
 
    let newTile = {
@@ -229,18 +223,22 @@ function flipTile(tileDOM, colorCode) {
 
    if (clickedTiles.length == 2) {
 
-      let allTiles = document.querySelectorAll('.tile');
-      removePointerEvents(allTiles);
+      removePointerEvents(document.querySelectorAll('.tile'));
 
       if (firstTile.color == newTile.color) {
+
+         matchedTiles.push(clickedTiles[0]);
+         matchedTiles.push(clickedTiles[1]);
+
+         matchedTiles.forEach(tile => {
+            tile.dom.classList.add('shown');
+         });
 
          setTimeout(() => {
             firstTile.dom.style.opacity = 0.3;
             newTile.dom.style.opacity = 0.3;
-            setPointerEvents(allTiles);
+            setPointerEvents(document.querySelectorAll('.tile:not(.shown)'));
          }, 500);
-
-         matchedTiles += 2;
 
       } else {
 
@@ -249,7 +247,7 @@ function flipTile(tileDOM, colorCode) {
             toggleVisibility(tileFront);
             toggleVisibility(firstTileBack);
             toggleVisibility(tileBack);
-            setPointerEvents(allTiles);
+            setPointerEvents(document.querySelectorAll('.tile:not(.shown)'));
          }, 500);
       }
 
@@ -257,7 +255,7 @@ function flipTile(tileDOM, colorCode) {
 
    }
 
-   if (matchedTiles == tileObjectsArray.length) {
+   if (matchedTiles.length == tileObjectsArray.length) {
 
       let player = playerNameContainer.value.trim();
       let time = timer.innerHTML;
@@ -331,13 +329,13 @@ function toggleVisibility(element) {
 }
 
 function setPointerEvents(elements) {
-   elements.forEach(element => {
-      element.style.pointerEvents = 'auto';
+   Array.prototype.forEach.call(elements, (item) => {
+      item.style.pointerEvents = 'auto';
    });
 }
 
 function removePointerEvents(elements) {
-   elements.forEach(element => {
-      element.style.pointerEvents = 'none';
+   Array.prototype.forEach.call(elements, (item) => {
+      item.style.pointerEvents = 'none';
    });
 }
