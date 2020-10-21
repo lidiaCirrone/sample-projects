@@ -1,0 +1,19 @@
+.tile {
+   text-align: center;
+   height: 210px;
+}
+
+.tile-front, .tile-back {
+   border-radius: 10px;
+   background-color: #eee;
+   width: 100%;
+   height: 100%;
+}
+
+.tile-front {
+   display: block;
+}
+
+.tile-back {
+   display: none;
+}
