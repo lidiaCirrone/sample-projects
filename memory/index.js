@@ -205,8 +205,6 @@ function createTile(cursor) {
 
 function flipTile(tileDOM, colorCode) {
 
-   tileDOM.classList.add('shown');
-
    let newTile = {
       dom: tileDOM,
       color: colorCode
@@ -229,25 +227,29 @@ function flipTile(tileDOM, colorCode) {
 
    tileDOM.style.pointerEvents = 'none';
 
-   if (clickedTiles.length == 2) {z
+   if (clickedTiles.length == 2) {
+
+      let allTiles = document.querySelectorAll('.tile');
+      removePointerEvents(allTiles);
+
       if (firstTile.color == newTile.color) {
 
          setTimeout(() => {
             firstTile.dom.style.opacity = 0.3;
             newTile.dom.style.opacity = 0.3;
+            setPointerEvents(allTiles);
          }, 500);
 
          matchedTiles += 2;
 
       } else {
-         firstTile.dom.style.pointerEvents = 'auto';
-         tileDOM.style.pointerEvents = 'auto';
 
          setTimeout(() => {
             toggleVisibility(firstTileFront);
             toggleVisibility(tileFront);
             toggleVisibility(firstTileBack);
             toggleVisibility(tileBack);
+            setPointerEvents(allTiles);
          }, 500);
       }
 
@@ -326,4 +328,16 @@ function emptyInput(element) {
 function toggleVisibility(element) {
    let visibility = window.getComputedStyle(element).getPropertyValue('display');
    visibility == 'block' ? element.style.display = 'none' : element.style.display = 'block';
+}
+
+function setPointerEvents(elements) {
+   elements.forEach(element => {
+      element.style.pointerEvents = 'auto';
+   });
+}
+
+function removePointerEvents(elements) {
+   elements.forEach(element => {
+      element.style.pointerEvents = 'none';
+   });
 }
