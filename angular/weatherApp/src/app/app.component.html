@@ -1,48 +1,53 @@
-<main>
+<main *ngIf="weatherData">
   <div class="upper-data">
-    <!-- <img src="../assets/hot.jpg" alt="hot" *ngIf="15 > 14" /> -->
-    <img src="../assets/cold.jpg" alt="cold" *ngIf="14 < 15" />
+    <img src="../assets/hot.jpg" alt="hot" *ngIf="weatherData.current.temperature_2m > 15" />
+    <img src="../assets/cold.jpg" alt="cold" *ngIf="weatherData.current.temperature_2m <= 15" />
     <div class="weather-data">
       <div class="location">Turin</div>
-      <div class="temperature">{{ 14.4 | number : "1.0-0" }}°C</div>
+      <div class="temperature">{{ weatherData.current.temperature_2m }}{{weatherData.current_units.temperature_2m}}</div>
     </div>
   </div>
   <div class="lower-data">
     <div class="more-info">
-      <!-- <div class="label">More information</div> -->
       <div class="container">
         <div class="info-block">
           <div class="label">
             <img src="../assets/min.png" alt="min" />
             <span>min</span>
           </div>
-          <div class="value">10°C</div>
+          <div class="value">{{weatherData.daily.temperature_2m_min[0]}}{{weatherData.current_units.temperature_2m}}</div>
         </div>
         <div class="info-block">
           <div class="label">
             <img src="../assets/max.png" alt="max" />
             <span>max</span>
           </div>
-          <div class="value">20°C</div>
+          <div class="value">{{weatherData.daily.temperature_2m_max[0]}}{{weatherData.current_units.temperature_2m}}</div>
         </div>
         <div class="info-block">
           <div class="label">
             <img src="../assets/humidity.png" alt="humidity" />
             <span>humidity</span>
           </div>
-          <div class="value">77%</div>
+          <div class="value">{{weatherData.current.relative_humidity_2m}}{{weatherData.current_units.relative_humidity_2m}}</div>
         </div>
         <div class="info-block">
           <div class="label">
             <img src="../assets/wind.png" alt="wind" />
             <span>wind</span>
           </div>
-          <div class="value">11 km/h</div>
+          <div class="value">{{weatherData.current.wind_speed_10m}} {{weatherData.current_units.wind_speed_10m}}</div>
         </div>
       </div>
     </div>
   </div>
 </main>
+
+<main *ngIf="!weatherData">
+   <p class="no-data">No data found :(</p>
+</main>
+
+
 <!-- <div class="credits">
   <div>
     <a
