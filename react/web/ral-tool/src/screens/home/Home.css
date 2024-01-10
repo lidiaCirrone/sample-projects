@@ -1,0 +1,109 @@
+body {
+   background-color: #282c34;
+}
+
+main {
+   margin: 5rem auto 0;
+   text-align: center;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   color: white;
+ }
+
+ main input {
+   font-size: 16px;
+   width: 120px;
+ }
+
+ main label {
+   margin: 0.5rem 0;
+ }
+
+ main ul {
+   margin: 2rem 0;
+ }
+
+ main ul, li {
+   padding: 0;
+   list-style-type: none;
+   text-align: left;
+ }
+
+ main li {
+   margin: 0;
+}
+
+ main li.flex-list {
+   margin-bottom: 2rem;
+   display: flex;
+   flex-direction: row;
+   justify-content: end;
+ }
+
+ main span {
+   display: block;
+   margin: 0.5rem 0;
+ }
+
+ span.delete-icon {
+   color: red;
+   font-weight: bold;
+   cursor: pointer;
+ }
+
+
+
+/* Toast notification */
+
+#toast {
+   visibility: hidden;
+   min-width: 250px;
+   margin-left: -125px;
+   background-color: #fff;
+   color: #333;
+   text-align: center;
+   border-radius: 2px;
+   padding: 16px;
+   position: fixed;
+   z-index: 1;
+   left: 50%;
+   bottom: 30px;
+}
+
+#toast.error {
+   background-color: #b06262;
+   color: #fff;
+}
+
+#toast span {
+   display: block;
+   text-align: center;
+}
+ 
+#toast.show {
+   visibility: visible;
+   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+   animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+ 
+@-webkit-keyframes fadein {
+   from {bottom: 0; opacity: 0;}
+   to {bottom: 30px; opacity: 1;}
+}
+ 
+@keyframes fadein {
+   from {bottom: 0; opacity: 0;}
+   to {bottom: 30px; opacity: 1;}
+}
+ 
+/* @-webkit-keyframes fadeout {
+   from {bottom: 30px; opacity: 1;}
+   to {bottom: 0; opacity: 0;}
+}
+ 
+@keyframes fadeout {
+   from {bottom: 30px; opacity: 1;}
+   to {bottom: 0; opacity: 0;}
+}  */

@@ -1,0 +1,54 @@
+body {
+   background-color: #282c34;
+}
+
+main {
+   margin: 5rem auto 0;
+   width: 400px;
+   text-align: center;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   color: white;
+ }
+
+ main input {
+   margin-left: 1rem;
+   font-size: 16px;
+ }
+
+ main label {
+   margin: 0.5rem 0;
+ }
+
+ main ul {
+   margin: 2rem 0;
+ }
+
+ main ul, li {
+   padding: 0;
+   list-style-type: none;
+   text-align: left;
+ }
+
+ main li {
+   margin: 0;
+}
+
+ main li.flex-list {
+   margin-bottom: 2rem;
+   display: flex;
+   flex-direction: row;
+   justify-content: end;
+ }
+
+ main span {
+   padding: 0 1rem;
+ }
+
+ span.delete-icon {
+   color: red;
+   font-weight: bold;
+   cursor: pointer;
+ }
