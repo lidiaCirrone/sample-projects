@@ -1,13 +1,103 @@
-<main *ngIf="weatherData">
-  <div class="upper-data">
-    <img src="../assets/hot.jpg" alt="hot" *ngIf="weatherData.current.temperature_2m > 15" />
-    <img src="../assets/cold.jpg" alt="cold" *ngIf="weatherData.current.temperature_2m <= 15" />
-    <div class="weather-data">
-      <div class="location">Turin</div>
-      <div class="temperature">{{ weatherData.current.temperature_2m }}{{weatherData.current_units.temperature_2m}}</div>
-    </div>
+<button class="info" (click)="toggleCredits()">
+   i
+</button>
+
+<section class="credits" *ngIf="showCredits">
+   <button class="info" (click)="toggleCredits()">
+      X
+   </button>
+  <div class="container">
+    <h2>Thanks to</h2>
+
+    <ul>
+      <li>
+        <a
+          href="https://www.youtube.com/watch?v=psZXU8PTAS8"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Sameer Saini</a
+        >
+        on YouTube for the Angular tutorial
+      </li>
+      <li>
+        <a
+          href="https://www.pexels.com/photo/macro-photography-of-snowflake-813871/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Egor Kamelev</a
+        >
+        and
+        <a
+          href="https://www.pexels.com/photo/blooming-flowers-growing-near-green-lawn-4916673/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Maria Orlova</a
+        >
+        on Pexels for the photos
+      </li>
+      <li>
+        <a
+          href="https://www.freepik.com/free-vector/beautiful-white-cloud-blue-sky-background_27885213.htm"
+          >Harryarts</a
+        >
+        on Freepik for the background
+      </li>
+      <li>
+        <a href="https://www.flaticon.com/free-icons/cold" title="cold icons"
+          >nawicon</a
+        >,
+        <a
+          href="https://www.flaticon.com/free-icons/temperature"
+          title="temperature icons"
+          >smashingstocks</a
+        >,
+        <a
+          href="https://www.flaticon.com/free-icons/humidity"
+          title="humidity icons"
+          >Freepik</a
+        >,
+        <a href="https://www.flaticon.com/free-icons/wind" title="wind icons"
+          >smalllikeart</a
+        >
+        on Flaticon for the icons
+      </li>
+    </ul>
   </div>
-  <div class="lower-data">
+</section>
+
+<section class="search">
+  <form #form="ngForm" (submit)="onSubmit()">
+    <input
+      type="text"
+      name="city"
+      [(ngModel)]="inputCity"
+      placeholder="Search city"
+    />
+  </form>
+</section>
+
+<main *ngIf="weatherData">
+  <section class="upper-data">
+    <img
+      src="../assets/hot.jpg"
+      alt="hot"
+      *ngIf="weatherData.current.temperature_2m > 15"
+    />
+    <img
+      src="../assets/cold.jpg"
+      alt="cold"
+      *ngIf="weatherData.current.temperature_2m <= 15"
+    />
+    <div class="weather-data">
+      <div class="location">{{ chosenCity }}</div>
+      <div class="temperature">
+        {{ weatherData.current.temperature_2m
+        }}{{ weatherData.current_units.temperature_2m }}
+      </div>
+    </div>
+  </section>
+  <section class="lower-data">
     <div class="more-info">
       <div class="container">
         <div class="info-block">
@@ -15,80 +105,48 @@
             <img src="../assets/min.png" alt="min" />
             <span>min</span>
           </div>
-          <div class="value">{{weatherData.daily.temperature_2m_min[0]}}{{weatherData.current_units.temperature_2m}}</div>
+          <div class="value">
+            {{ weatherData.daily.temperature_2m_min[0]
+            }}{{ weatherData.current_units.temperature_2m }}
+          </div>
         </div>
         <div class="info-block">
           <div class="label">
             <img src="../assets/max.png" alt="max" />
             <span>max</span>
           </div>
-          <div class="value">{{weatherData.daily.temperature_2m_max[0]}}{{weatherData.current_units.temperature_2m}}</div>
+          <div class="value">
+            {{ weatherData.daily.temperature_2m_max[0]
+            }}{{ weatherData.current_units.temperature_2m }}
+          </div>
         </div>
         <div class="info-block">
           <div class="label">
             <img src="../assets/humidity.png" alt="humidity" />
             <span>humidity</span>
           </div>
-          <div class="value">{{weatherData.current.relative_humidity_2m}}{{weatherData.current_units.relative_humidity_2m}}</div>
+          <div class="value">
+            {{ weatherData.current.relative_humidity_2m
+            }}{{ weatherData.current_units.relative_humidity_2m }}
+          </div>
         </div>
         <div class="info-block">
           <div class="label">
             <img src="../assets/wind.png" alt="wind" />
             <span>wind</span>
           </div>
-          <div class="value">{{weatherData.current.wind_speed_10m}} {{weatherData.current_units.wind_speed_10m}}</div>
+          <div class="value">
+            {{ weatherData.current.wind_speed_10m }}
+            {{ weatherData.current_units.wind_speed_10m }}
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </main>
 
 <main *ngIf="!weatherData">
-   <p class="no-data">No data found :(</p>
+  <p class="no-data">No data found :(</p>
 </main>
 
-
-<!-- <div class="credits">
-  <div>
-    <a
-      href="https://www.freepik.com/free-vector/unfocussed-winter-background-with-snowflakes_10696590.htm#query=cold%20background&position=3&from_view=search&track=ais&uuid=ae84bea8-ba72-4ae6-bf7b-87818ca37d99"
-      >Image by s.salvador</a
-    >
-    on Freepik
-  </div>
-  <div>
-    <a
-      href="https://www.freepik.com/free-vector/bokeh-bubbles-sun-flash-blue-background_10123756.htm#query=sunny%20background&position=2&from_view=search&track=ais&uuid=6f55e0c5-acd6-4860-b1d1-1807a377c6bd"
-      >Image by kotkoa</a
-    >
-    on Freepik
-  </div>
-  <div>
-    <a href="https://www.flaticon.com/free-icons/cold" title="cold icons"
-      >Cold icons created by nawicon - Flaticon</a
-    >
-  </div>
-  <div>
-    <a
-      href="https://www.flaticon.com/free-icons/temperature"
-      title="temperature icons"
-      >Temperature icons created by smashingstocks - Flaticon</a
-    >
-  </div>
-  <div>
-    <a
-      href="https://www.flaticon.com/free-icons/humidity" title="humidity icons" >Humidity icons created by Freepik - Flaticon</a
-    >
-  </div>
-  <div>
-   <a href="https://www.flaticon.com/free-icons/wind" title="wind icons">Wind icons created by smalllikeart - Flaticon</a>
-  </div>
-  <div>
-      <a href="https://www.freepik.com/free-vector/beautiful-white-cloud-blue-sky-background_27885213.htm#query=sky%20background&position=8&from_view=search&track=ais&uuid=9bc07336-c1f7-4fbd-a3b5-bf8b701f1806">Image by Harryarts</a> on Freepik
-  </div>
-  <div>
-      Photo by Egor Kamelev: https://www.pexels.com/photo/macro-photography-of-snowflake-813871/
-  </div>
-  <div>Photo by Maria Orlova: https://www.pexels.com/photo/blooming-flowers-growing-near-green-lawn-4916673/</div>
-</div> -->
 <router-outlet></router-outlet>
