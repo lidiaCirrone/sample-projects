@@ -13,6 +13,7 @@ import { CocktailDetailsResolver } from './cocktail-details.resolver';
 import { IngredientsListComponent } from './ingredients-list/ingredients-list.component';
 import { IngredientDetailsComponent } from './ingredient-details/ingredient-details.component';
 import { IngredientDetailsResolver } from './ingredient-details.resolver';
+import { CreditsComponent } from './credits/credits.component';
 
 const routes: Route[] = [
   {
@@ -38,6 +39,10 @@ const routes: Route[] = [
     }
   },
   {
+   path: 'credits',
+   component: CreditsComponent
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'list'
@@ -55,7 +60,8 @@ const routes: Route[] = [
     CocktailDetailsComponent,
     NotFoundPageComponent,
     IngredientsListComponent,
-    IngredientDetailsComponent
+    IngredientDetailsComponent,
+    CreditsComponent
   ],
   imports: [
     BrowserModule,
