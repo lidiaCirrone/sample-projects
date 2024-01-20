@@ -8,11 +8,10 @@ describe('CreditsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CreditsComponent],
-    }).compileComponents();
-  });
-
-  beforeEach(() => {
+      imports: [CreditsComponent]
+    })
+    .compileComponents();
+    
     fixture = TestBed.createComponent(CreditsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

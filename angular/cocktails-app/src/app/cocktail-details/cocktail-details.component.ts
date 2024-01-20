@@ -1,24 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
-import { CocktailService } from '../cocktail.service';
-import { Observable } from 'rxjs';
 import { Cocktail } from '../cocktail.model';
+import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cocktail-details',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './cocktail-details.component.html',
-  styleUrls: ['./cocktail-details.component.css']
+  styleUrl: './cocktail-details.component.scss',
 })
 export class CocktailDetailsComponent implements OnInit {
-  cocktail: Cocktail;
+  cocktail!: Cocktail;
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe((data: {cocktail: Cocktail}) => {
-      this.cocktail = data.cocktail
-    })
+    this.activatedRoute.data.subscribe(({ cocktail }) => {
+      this.cocktail = cocktail;
+    });
   }
-
 }

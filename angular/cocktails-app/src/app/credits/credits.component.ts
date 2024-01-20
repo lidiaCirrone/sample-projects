@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-credits',
+  standalone: true,
+  imports: [],
   templateUrl: './credits.component.html',
-  styleUrls: ['./credits.component.css'],
+  styleUrl: './credits.component.scss'
 })
-export class CreditsComponent implements OnInit {
-  constructor() {}
+export class CreditsComponent {
 
-  ngOnInit(): void {}
 }

@@ -1,21 +1,18 @@
-import { Injectable } from '@angular/core';
-import {
-  Resolve,
-  RouterStateSnapshot,
-  ActivatedRouteSnapshot,
-} from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { Ingredient } from './ingredient.model';
+import { ActivatedRouteSnapshot, ResolveFn } from '@angular/router';
 import { CocktailService } from './cocktail.service';
+import { inject } from '@angular/core';
+import { Ingredient } from './ingredient.model';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class IngredientDetailsResolver implements Resolve<Ingredient> {
-  constructor(private cocktailService: CocktailService) {}
+export const ingredientDetailsResolver: ResolveFn<Ingredient> = (
+  route: ActivatedRouteSnapshot
+) => {
+  const cocktailService = inject(CocktailService);
+  const name = route.paramMap.get('name');
 
-  resolve(route: ActivatedRouteSnapshot): Observable<Ingredient> {
-    const name = route.paramMap.get('name');
-    return this.cocktailService.getIngredientByName(name);
+  // TO-DO: check
+  if (!name) {
+    throw new Error(`No ingredient name selected.`);
   }
-}
+
+  return cocktailService.getIngredientByName(name);
+};

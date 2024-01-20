@@ -8,12 +8,10 @@ describe('CocktailDetailsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CocktailDetailsComponent ]
+      imports: [CocktailDetailsComponent]
     })
     .compileComponents();
-  });
-
-  beforeEach(() => {
+    
     fixture = TestBed.createComponent(CocktailDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

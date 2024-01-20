@@ -46,13 +46,13 @@ export class CocktailService {
   listByFirstLetter(letter: string): Observable<Array<Cocktail>> {
     const url = `${CocktailService.baseUrl}/search.php?f=${letter}`;
     return this.http
-      .get(url)
+      .get<CocktailDbResult>(url)
       .pipe(map((result: CocktailDbResult) => this.mapResultToModel(result)));
   }
 
   getById(id: string): Observable<Cocktail> {
     const url = `${CocktailService.baseUrl}/lookup.php?i=${id}`;
-    return this.http.get(url).pipe(
+    return this.http.get<CocktailDbResult>(url).pipe(
       map((result: CocktailDbResult) => this.mapResultToModel(result)),
       map((drinks: Array<Cocktail>) => {
         if (!drinks.length) {
@@ -66,11 +66,13 @@ export class CocktailService {
 
   getIngredients(): Observable<Array<string>> {
     const url = `${CocktailService.baseUrl}/list.php?i=list`;
-    return this.http.get(url).pipe(
-      map((result: { drinks: Array<{ strIngredient1: string }> }) => {
-        return result.drinks.map((d) => d.strIngredient1);
-      })
-    );
+    return this.http
+      .get<{ drinks: Array<{ strIngredient1: string }> }>(url)
+      .pipe(
+        map((result: { drinks: Array<{ strIngredient1: string }> }) => {
+          return result.drinks.map((d) => d.strIngredient1);
+        })
+      );
   }
 
   getIngredientByName(name: string): Observable<Ingredient> {
@@ -92,14 +94,14 @@ export class CocktailService {
     const drinks = cocktailDbResult?.drinks || [];
 
     return drinks
-      .map((drink) => this.mapSingleDrinkToModel(drink))
-      .filter((drink) => !!drink); // remove null values
+      .filter((drink) => !!drink) // remove null values
+      .map((drink) => this.mapSingleDrinkToModel(drink));
   }
 
-  private mapSingleDrinkToModel(drink: CocktailDbDrink): Cocktail | null {
-    if (!drink) {
-      return;
-    }
+  private mapSingleDrinkToModel(drink: CocktailDbDrink): Cocktail {
+    //  if (!drink) {
+    //    return null;
+    //  }
 
     const ingredients = [
       drink.strIngredient1,

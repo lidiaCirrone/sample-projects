@@ -1,16 +1,17 @@
 import { TestBed } from '@angular/core/testing';
+import { ResolveFn } from '@angular/router';
 
-import { IngredientDetailsResolver } from './ingredient-details.resolver';
+import { ingredientDetailsResolver } from './ingredient-details.resolver';
 
-describe('IngredientDetailsResolver', () => {
-  let resolver: IngredientDetailsResolver;
+describe('ingredientDetailsResolver', () => {
+  const executeResolver: ResolveFn<boolean> = (...resolverParameters) => 
+      TestBed.runInInjectionContext(() => ingredientDetailsResolver(...resolverParameters));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    resolver = TestBed.inject(IngredientDetailsResolver);
   });
 
   it('should be created', () => {
-    expect(resolver).toBeTruthy();
+    expect(executeResolver).toBeTruthy();
   });
 });
